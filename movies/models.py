@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Language(models.Model):
-	name = models.CharField(_('Lenguaje'), max_length=100)
+	name = models.CharField(_('Lenguaje'), max_length=100, unique=True)
 
     class Meta:
         verbose_name = "Language"
@@ -21,7 +21,7 @@ class Language(models.Model):
 
 
 class Room(models.Model):
-	name = models.CharField(_('Nombre de Sala'), max_length=100)
+	name = models.CharField(_('Nombre de Sala'), max_length=100, unique=True)
 
 	cinema = models.ForeignKey(
 		Cinema,
@@ -41,7 +41,7 @@ class Room(models.Model):
 
 
 class Cinema(models.Model):
-	name = models.CharField(_('Cinema'), max_length=150)
+	name = models.CharField(_('Cinema'), max_length=150, unique=True)
 
     class Meta:
         verbose_name = "Cinema"
@@ -55,7 +55,7 @@ class Cinema(models.Model):
     
 
 class Genre(models.Model):
-	name = models.CharField(_('Género'), max_length=100)
+	name = models.CharField(_('Género'), max_length=100, unique=True)
 
     class Meta:
         verbose_name = "Genre"
@@ -69,7 +69,7 @@ class Genre(models.Model):
 
 
 class Movie(models.Model):
-	title = models.CharField(_('Título'), max_length=200)
+	title = models.CharField(_('Título'), max_length=200, unique=True)
 
 	genre = models.ForeignKey(
 		Genre,
