@@ -1,0 +1,9 @@
+*.py[co]
+__pycache__
+bin/
+include/
+lib/
+pip-selfcheck.json
+media/
+movie_scrapper/local_settings.py
+local.sqlite3
