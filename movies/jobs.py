@@ -35,7 +35,7 @@ class CinemaLaPlataImporter(Importer):
         return genre
 
     def persist_movie(self, title, genre):
-        movie, created = Movie.objects.create(title=title, genre=genre)
+        movie, created = Movie.objects.get_or_create(title=title, genre=genre)
         return movie
 
     #  Given an URL of a movie, imports the data
@@ -74,17 +74,17 @@ class CinemaLaPlataImporter(Importer):
         #             function_hour.hour = hour.strip().lower().encode('utf-8')
         #             self.persist_movie(function_hour)
 
-    def persist_movie(self, movie):
-        filename = "../data/cinema_la_plata.txt"
-        if self.output_file:
-            append_write = 'a' # append if already exists
-        else:
-            append_write = 'w' # make a new file if not
-            self.output_file = True
+    # def persist_movie(self, title, genre):
+    #     filename = "../data/cinema_la_plata.txt"
+    #     if self.output_file:
+    #         append_write = 'a' # append if already exists
+    #     else:
+    #         append_write = 'w' # make a new file if not
+    #         self.output_file = True
 
-        file = open(filename, append_write)
-        file.write(movie.as_text_entry() + '\n')
-        file.close()
+    #     file = open(filename, append_write)
+    #     file.write(movie.as_text_entry() + '\n')
+    #     file.close()
 
     # Get all detail pages of movies from CinemaLaPlata
     def get_detail_pages(self):
