@@ -35,7 +35,7 @@ class Cinema(models.Model):
 
 
 class Room(models.Model):
-    name = models.CharField(_('Nombre de Sala'), max_length=100, unique=True)
+    name = models.CharField(_('Nombre de Sala'), max_length=100)
 
     cinema = models.ForeignKey(
         Cinema,
@@ -70,6 +70,7 @@ class Genre(models.Model):
 
 class Movie(models.Model):
     title = models.CharField(_('Título'), max_length=200, unique=True)
+    distributor = models.CharField(_('Distribuidor'), max_length=100, null=True, blank=True)
 
     genre = models.ForeignKey(
         Genre,
@@ -89,8 +90,8 @@ class Movie(models.Model):
 
 
 class Function(models.Model):
-    from_hour = models.DateTimeField()
-    to_hour = models.DateTimeField()
+    from_hour = models.TimeField()
+    to_hour = models.TimeField(null=True, blank=True)
 
     movie = models.ForeignKey(
         Movie,
@@ -111,15 +112,15 @@ class Function(models.Model):
         verbose_name_plural = "Functions"
 
     def __str__(self):
-        return self.movie.name + ' => From: ' + str(self.from_hour) + ' To: '
-        + str(self.to_hour) + ' In: ' + self.room.name
-        + ' Spoken in: ' + self.language.name
+        return self.movie.title + ' => From: ' + str(self.from_hour) + ' To: ' \
+        + str(self.to_hour) + ' In: ' + self.room.name \
+        + ' Spoken in: ' + self.language.name \
         + ' From cinema: ' + self.room.cinema.name
 
     def __unicode__(self):
-        function_string = self.movie.name + ' => From: ' + str(self.from_hour)
-        + ' To: ' + str(self.to_hour) + ' In: ' + self.room.name
-        + ' Spoken in: ' + self.language.name
+        function_string = self.movie.title + ' => From: ' + str(self.from_hour) \
+        + ' To: ' + str(self.to_hour) + ' In: ' + self.room.name \
+        + ' Spoken in: ' + self.language.name \
         + ' From cinema: ' + self.room.cinema.name
 
         return u'%s' % function_string
